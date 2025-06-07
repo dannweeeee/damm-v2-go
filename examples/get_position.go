@@ -14,7 +14,6 @@ import (
 func GetPosition() {
 	rpcClient := rpc.New("https://api.mainnet-beta.solana.com")
 
-	// Replace this with the wallet address you want to check
 	userAddressStr := "YOUR_WALLET_ADDRESS"
 
 	fmt.Println("Getting positions for user...")
@@ -27,7 +26,6 @@ func GetPosition() {
 		log.Fatalf("Failed to get positions: %v", err)
 	}
 
-	// Marshal the positions to JSON
 	jsonData, err := json.MarshalIndent(positions, "", "  ")
 	if err != nil {
 		log.Fatalf("failed to marshal positions to JSON: %v", err)
@@ -37,6 +35,6 @@ func GetPosition() {
 	fmt.Printf("Positions JSON: %s\n", string(jsonData))
 }
 
-func main() {
-	GetPosition()
-}
+// func main() {
+// 	GetPosition()
+// }

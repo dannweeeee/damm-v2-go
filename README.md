@@ -27,3 +27,13 @@ Before running the examples, you need to:
 ```bash
 go run examples/<file-name>.go
 ```
+
+## Examples
+
+- [Claim position fee](./examples/claim_position_fee.go)
+- [Get all position NFT accounts by owner](./examples/get_all_position_nft_account_by_owner.go)
+- [Get pool](./examples/get_pool.go)
+- [Get position](./examples/get_position.go)
+- [Get positions by user](./examples/get_positions_by_user.go)
+- [Get unclaim reward](./examples/get_unclaim_reward.go)
+- [Get user position by pool](./examples/get_user_position_by_pool.go)

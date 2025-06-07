@@ -9,7 +9,7 @@ import (
 	"lukechampine.com/uint128"
 )
 
-// Deserializes pool data from binary format
+// Deserializes pool data
 func DeserializePool(data []byte) (*common.Pool, error) {
 	if len(data) < 8 {
 		return nil, fmt.Errorf("data too short")
@@ -151,7 +151,7 @@ func DeserializePool(data []byte) (*common.Pool, error) {
 	return pool, nil
 }
 
-// DeserializePosition deserializes position data from binary format
+// Deserializes position data
 func DeserializePosition(data []byte) (*common.PositionState, error) {
 	if len(data) < 8 {
 		return nil, fmt.Errorf("data too short")

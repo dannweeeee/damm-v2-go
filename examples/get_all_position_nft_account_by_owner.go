@@ -14,7 +14,6 @@ import (
 func GetAllPositionNftAccountByOwner() {
 	rpcClient := rpc.New("https://api.mainnet-beta.solana.com")
 
-	// Replace this with the wallet address you want to check
 	ownerAddressStr := "YOUR_WALLET_ADDRESS"
 
 	fmt.Println("Getting position NFT accounts...")
@@ -27,7 +26,6 @@ func GetAllPositionNftAccountByOwner() {
 		log.Fatalf("Failed to get position NFT accounts: %v", err)
 	}
 
-	// Marshal the position NFT accounts to JSON
 	jsonData, err := json.MarshalIndent(positionNftAccounts, "", "  ")
 	if err != nil {
 		log.Fatalf("failed to marshal position NFT accounts to JSON: %v", err)

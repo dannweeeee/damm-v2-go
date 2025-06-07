@@ -9,7 +9,7 @@ import (
 	"github.com/gagliardetto/solana-go/rpc"
 )
 
-// GetAllPositionNftAccountByOwner retrieves all position NFT accounts owned by a user
+// Retrieves all position NFT accounts owned by a user
 func GetAllPositionNftAccountByOwner(
 	ctx context.Context,
 	rpcClient *rpc.Client,

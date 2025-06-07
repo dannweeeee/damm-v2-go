@@ -148,3 +148,13 @@ type PositionResult struct {
 	Position           solana.PublicKey
 	PositionState      PositionState
 }
+
+const (
+	LIQUIDITY_SCALE = 64
+)
+
+type UnclaimReward struct {
+	FeeTokenA uint128.Uint128
+	FeeTokenB uint128.Uint128
+	Rewards   []uint128.Uint128
+}

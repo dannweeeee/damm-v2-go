@@ -26,7 +26,6 @@ func GetPool() {
 		log.Fatalf("Failed to get pool: %v", err)
 	}
 
-	// Marshal the pool to JSON
 	jsonData, err := json.MarshalIndent(pool, "", "  ")
 	if err != nil {
 		log.Fatalf("failed to marshal pool to JSON: %v", err)

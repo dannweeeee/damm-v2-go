@@ -132,3 +132,26 @@ func GetPosition(ctx context.Context, positionAddress solana.PublicKey, rpcClien
 
 	return helpers.DeserializePosition(data)
 }
+
+func GetUserPositionByPool(
+	ctx context.Context,
+	rpcClient *rpc.Client,
+	pool solana.PublicKey,
+	user solana.PublicKey,
+) ([]common.PositionResult, error) {
+	// Get all positions for the user
+	allPositions, err := GetPositionsByUser(ctx, rpcClient, user)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user positions: %w", err)
+	}
+
+	// Filter positions by pool
+	filteredPositions := make([]common.PositionResult, 0)
+	for _, position := range allPositions {
+		if position.PositionState.Pool.Equals(pool) {
+			filteredPositions = append(filteredPositions, position)
+		}
+	}
+
+	return filteredPositions, nil
+}
