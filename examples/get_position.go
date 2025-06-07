@@ -11,7 +11,7 @@ import (
 	"github.com/gagliardetto/solana-go/rpc"
 )
 
-func GetPositionsByUser() {
+func GetPosition() {
 	rpcClient := rpc.New("https://api.mainnet-beta.solana.com")
 
 	// Replace this with the wallet address you want to check
@@ -37,6 +37,6 @@ func GetPositionsByUser() {
 	fmt.Printf("Positions JSON: %s\n", string(jsonData))
 }
 
-// func main() {
-// 	GetPositionsByUser()
-// }
+func main() {
+	GetPosition()
+}

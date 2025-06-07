@@ -108,3 +108,27 @@ func GetPositionsByUser(
 
 	return positionResults, nil
 }
+
+func GetPosition(ctx context.Context, positionAddress solana.PublicKey, rpcClient *rpc.Client) (*common.PositionState, error) {
+	account, err := rpcClient.GetAccountInfo(ctx, positionAddress)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get position account: %w", err)
+	}
+
+	if account == nil || account.Value == nil {
+		return nil, fmt.Errorf("position account not found")
+	}
+
+	data := account.Value.Data.GetBinary()
+
+	if len(data) < 8 {
+		return nil, fmt.Errorf("data too short")
+	}
+
+	expectedDiscriminator := []byte{170, 188, 143, 228, 122, 64, 247, 208}
+	if !bytes.Equal(data[:8], expectedDiscriminator) {
+		return nil, fmt.Errorf("invalid discriminator, not a position account")
+	}
+
+	return helpers.DeserializePosition(data)
+}
