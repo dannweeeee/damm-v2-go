@@ -27,13 +27,3 @@ Before running the examples, you need to:
 ```bash
 go run examples/<file-name>.go
 ```
-
-## Examples
-
-- [Create a pool and swap SOL](./examples/create_pool_and_swap_sol.go)
-- [Create a pool and swap USDC](./examples/create_pool_and_swap_usdc.go)
-- [Claim creator trading fee](./examples/claim_creator_trading_fee.go)
-- [Claim partner trading fee](./examples/claim_partner_trading_fee.go)
-- [Fetch pool configuration](./examples/get_pool_config.go)
-- [Fetch pool fee metrics](./examples/get_pool_fee_metrics.go)
-- [Fetch pool](./examples/get_pool.go)
