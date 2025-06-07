@@ -150,3 +150,56 @@ func DeserializePool(data []byte) (*common.Pool, error) {
 
 	return pool, nil
 }
+
+// DeserializePosition deserializes position data from binary format
+func DeserializePosition(data []byte) (*common.PositionState, error) {
+	if len(data) < 8 {
+		return nil, fmt.Errorf("data too short")
+	}
+
+	// Skip discriminator
+	data = data[8:]
+
+	position := &common.PositionState{}
+
+	// Read public keys
+	position.Pool = solana.PublicKeyFromBytes(data[0:32])
+	position.NftMint = solana.PublicKeyFromBytes(data[32:64])
+	data = data[64:]
+
+	// Read fee checkpoints
+	copy(position.FeeAPerTokenCheckpoint[:], data[0:32])
+	copy(position.FeeBPerTokenCheckpoint[:], data[32:64])
+	data = data[64:]
+
+	// Read fee pending
+	position.FeeAPending = binary.LittleEndian.Uint64(data[0:8])
+	position.FeeBPending = binary.LittleEndian.Uint64(data[8:16])
+	data = data[16:]
+
+	// Read liquidity values
+	position.UnlockedLiquidity = uint128.From64(binary.LittleEndian.Uint64(data[0:8])).Add(uint128.From64(binary.LittleEndian.Uint64(data[8:16])).Lsh(64))
+	position.VestedLiquidity = uint128.From64(binary.LittleEndian.Uint64(data[16:24])).Add(uint128.From64(binary.LittleEndian.Uint64(data[24:32])).Lsh(64))
+	position.PermanentLockedLiquidity = uint128.From64(binary.LittleEndian.Uint64(data[32:40])).Add(uint128.From64(binary.LittleEndian.Uint64(data[40:48])).Lsh(64))
+	data = data[48:]
+
+	// Read metrics
+	position.Metrics.TotalClaimedAFee = binary.LittleEndian.Uint64(data[0:8])
+	position.Metrics.TotalClaimedBFee = binary.LittleEndian.Uint64(data[8:16])
+	data = data[16:]
+
+	// Read reward infos
+	for i := 0; i < 2; i++ {
+		copy(position.RewardInfos[i].RewardPerTokenCheckpoint[:], data[0:32])
+		position.RewardInfos[i].RewardPendings = binary.LittleEndian.Uint64(data[32:40])
+		position.RewardInfos[i].TotalClaimedRewards = binary.LittleEndian.Uint64(data[40:48])
+		data = data[48:]
+	}
+
+	// Read padding
+	for i := 0; i < 6; i++ {
+		position.Padding[i] = uint128.From64(binary.LittleEndian.Uint64(data[i*16 : i*16+8])).Add(uint128.From64(binary.LittleEndian.Uint64(data[i*16+8 : i*16+16])).Lsh(64))
+	}
+
+	return position, nil
+}

@@ -24,3 +24,13 @@ func DerivePoolAuthorityPDA() solana.PublicKey {
 	}
 	return address
 }
+
+// Derives the position PDA from a position NFT mint
+func DerivePositionPDA(positionNft solana.PublicKey) (solana.PublicKey, error) {
+	seeds := [][]byte{[]byte("position"), positionNft.Bytes()}
+	address, _, err := solana.FindProgramAddress(seeds, solana.MustPublicKeyFromBase58(common.DammV2ProgramID))
+	if err != nil {
+		return solana.PublicKey{}, err
+	}
+	return address, nil
+}

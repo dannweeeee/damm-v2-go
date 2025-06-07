@@ -100,3 +100,51 @@ type Pool struct {
 	Padding1               [10]uint64
 	RewardInfos            [2]RewardInfo
 }
+
+type PositionNftAccount struct {
+	PositionNft        solana.PublicKey
+	PositionNftAccount solana.PublicKey
+}
+
+type TokenAccountLayout struct {
+	Mint            solana.PublicKey
+	Owner           solana.PublicKey
+	Amount          uint64
+	Delegate        solana.PublicKey
+	State           uint8
+	IsNative        uint64
+	DelegatedAmount uint64
+	CloseAuthority  solana.PublicKey
+}
+
+type PositionMetrics struct {
+	TotalClaimedAFee uint64
+	TotalClaimedBFee uint64
+}
+
+type UserRewardInfo struct {
+	RewardPerTokenCheckpoint [32]uint8
+	RewardPendings           uint64
+	TotalClaimedRewards      uint64
+}
+
+type PositionState struct {
+	Pool                     solana.PublicKey
+	NftMint                  solana.PublicKey
+	FeeAPerTokenCheckpoint   [32]uint8
+	FeeBPerTokenCheckpoint   [32]uint8
+	FeeAPending              uint64
+	FeeBPending              uint64
+	UnlockedLiquidity        uint128.Uint128
+	VestedLiquidity          uint128.Uint128
+	PermanentLockedLiquidity uint128.Uint128
+	Metrics                  PositionMetrics
+	RewardInfos              [2]UserRewardInfo
+	Padding                  [6]uint128.Uint128
+}
+
+type PositionResult struct {
+	PositionNftAccount solana.PublicKey
+	Position           solana.PublicKey
+	PositionState      PositionState
+}

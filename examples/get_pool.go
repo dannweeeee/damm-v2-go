@@ -35,6 +35,6 @@ func GetPool() {
 	fmt.Printf("Pool JSON: %s\n", string(jsonData))
 }
 
-func main() {
-	GetPool()
-}
+// func main() {
+// 	GetPool()
+// }
